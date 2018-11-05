@@ -1,0 +1,112 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://gem.gov.in/order/ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="OrderService" targetNamespace="http://gem.gov.in/order/ws">
+<wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://gem.gov.in/order/ws" elementFormDefault="unqualified" targetNamespace="http://gem.gov.in/order/ws" version="1.0">
+<xs:element name="countOrders" type="tns:countOrders"/>
+<xs:element name="countOrdersResponse" type="tns:countOrdersResponse"/>
+<xs:element name="summaryOrders" type="tns:summaryOrders"/>
+<xs:element name="summaryOrdersResponse" type="tns:summaryOrdersResponse"/>
+<xs:complexType name="summaryOrders">
+<xs:sequence>
+<xs:element minOccurs="0" name="summary" type="tns:orderRequest"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="orderRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="authToken" type="xs:string"/>
+<xs:element minOccurs="0" name="clientCode" type="xs:string"/>
+<xs:element minOccurs="0" name="fromDate" type="xs:string"/>
+<xs:element minOccurs="0" name="toDate" type="xs:string"/>
+<xs:element minOccurs="0" name="transactionId" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="summaryOrdersResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:orderSummaryResponse"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="orderSummaryResponse">
+<xs:complexContent>
+<xs:extension base="tns:response">
+<xs:sequence>
+<xs:element minOccurs="0" name="apiKey" type="xs:string"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType abstract="true" name="response">
+<xs:sequence>
+<xs:element minOccurs="0" name="message" type="xs:string"/>
+<xs:element minOccurs="0" name="responseStatus" type="xs:string"/>
+<xs:element minOccurs="0" name="transactionId" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="countOrders">
+<xs:sequence>
+<xs:element minOccurs="0" name="count" type="tns:orderRequest"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="countOrdersResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:orderCountResponse"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="orderCountResponse">
+<xs:complexContent>
+<xs:extension base="tns:response">
+<xs:sequence>
+<xs:element minOccurs="0" name="apiKey" type="xs:string"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+</xs:schema>
+</wsdl:types>
+<wsdl:message name="summaryOrders">
+<wsdl:part element="tns:summaryOrders" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="summaryOrdersResponse">
+<wsdl:part element="tns:summaryOrdersResponse" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="countOrders">
+<wsdl:part element="tns:countOrders" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="countOrdersResponse">
+<wsdl:part element="tns:countOrdersResponse" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:portType name="OrderServicesSoap">
+<wsdl:operation name="summaryOrders">
+<wsdl:input message="tns:summaryOrders" name="summaryOrders"> </wsdl:input>
+<wsdl:output message="tns:summaryOrdersResponse" name="summaryOrdersResponse"> </wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="countOrders">
+<wsdl:input message="tns:countOrders" name="countOrders"> </wsdl:input>
+<wsdl:output message="tns:countOrdersResponse" name="countOrdersResponse"> </wsdl:output>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="OrderServiceSoapBinding" type="tns:OrderServicesSoap">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="summaryOrders">
+<soap:operation soapAction="" style="document"/>
+<wsdl:input name="summaryOrders">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="summaryOrdersResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="countOrders">
+<soap:operation soapAction="" style="document"/>
+<wsdl:input name="countOrders">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="countOrdersResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="OrderService">
+<wsdl:port binding="tns:OrderServiceSoapBinding" name="OrderServicesSoapPort">
+<soap:address location="http://100.70.177.137:4014/services/v1"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
